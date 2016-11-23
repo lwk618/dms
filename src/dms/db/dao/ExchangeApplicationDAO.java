@@ -29,6 +29,18 @@ public class ExchangeApplicationDAO extends BasicDAO<ExchangeApplication> {
 	public List<ExchangeApplication> query() {
 		return query("select * from `" + TABLE + "`;");
 	}
+	
+	public List<ExchangeApplication> queryByUserId(int userId) {
+		return query("select * from `" + TABLE + "` where `" + COLUMN.USER_ID + "` = ?;", userId);
+	}
+	
+	public List<ExchangeApplication> queryByFromDepartureSlotId(int fromDepartureSlotId) {
+		return query("select * from `" + TABLE + "` where `" + COLUMN.FROM_DEPARTURE_SLOT_ID + "` = ?;", fromDepartureSlotId);
+	}
+	
+	public List<ExchangeApplication> queryByToDepartureSlotId(int toDepartureSlotId) {
+		return query("select * from `" + TABLE + "` where `" + COLUMN.TO_DEPARTURE_SLOT_ID + "` = ?;", toDepartureSlotId);
+	}
 
 	@Override
 	public boolean insert(ExchangeApplication bean) {

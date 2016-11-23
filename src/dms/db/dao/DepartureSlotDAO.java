@@ -30,6 +30,10 @@ public class DepartureSlotDAO extends BasicDAO<DepartureSlot> {
 	public List<DepartureSlot> query() {
 		return query("select * from `" + TABLE + "`;");
 	}
+	
+	public List<DepartureSlot> queryByAircraft(int aircraftId) {
+		return query("select * from `" + TABLE + "` where `" + COLUMN.AIRCRAFT_ID + "` = ?;", aircraftId);
+	}
 
 	@Override
 	public boolean insert(DepartureSlot bean) {
