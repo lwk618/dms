@@ -25,7 +25,11 @@ public class UserDAO extends BasicDAO<User> {
 	public User get(int id) {
 		return get("select * from `" + TABLE + "` where `" + COLUMN.ID + "` = ?;", id);
 	}
-
+	
+	public User getByLoginId(String loginId){
+		return get("select * from `" + TABLE + "` where `" + COLUMN.LOGIN_ID + "` = ?;", loginId);
+	}
+	
 	@Override
 	public List<User> query() {
 		return query("select * from `" + TABLE + "`;");

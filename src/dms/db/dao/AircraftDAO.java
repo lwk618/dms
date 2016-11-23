@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ser.std.StaticListSerializerBase;
 
 import dms.bean.Aircraft;
 
-public abstract class AircraftDAO extends BasicDAO<Aircraft> {
+public class AircraftDAO extends BasicDAO<Aircraft> {
 
 	public static String TABLE = "Aircraft";
 
@@ -31,6 +31,10 @@ public abstract class AircraftDAO extends BasicDAO<Aircraft> {
 		return query("select * from `" + TABLE + "`;");
 	}
 
+	public List<Aircraft> queryByAirlineId(int airlineId){
+		return query("select * from `" + TABLE + "` where `" + COLUMN.AIRLINE_ID + "` = ?;", airlineId);
+	}
+	
 	@Override
 	public boolean insert(Aircraft bean) {
 		int id = insert("insert into `" + TABLE + "` ("
