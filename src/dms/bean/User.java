@@ -2,6 +2,7 @@ package dms.bean;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class User {
@@ -12,10 +13,12 @@ public class User {
 	}
 	private int id;
 	private String loginId;
+	@JsonIgnore
 	private String password;
 	private String type;
 	private int airlineId;
 	private String status;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
 	private Timestamp lastLogin;
 	
 //	private Airline airline;

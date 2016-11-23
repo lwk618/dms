@@ -1,7 +1,5 @@
 package dms.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class ExchangeApplication {
 	public static class TYPE{
 		public static String DELAY = "d";
