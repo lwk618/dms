@@ -1,0 +1,104 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+
+webAppDirName = 'WebContent'
+
+task runAll{
+	//dependsOn ':eclipse'
+	//dependsOn ':build'
+	dependsOn ':jar'
+}
+
+
+eclipse{
+	wtp{
+		facet{
+			facet name: 'jst.web', version:'3.1'
+			def oldJstWebFacet = facets.findAll {
+                it.name == 'jst.web' && it.version == '2.4'
+            }
+            facets.removeAll(oldJstWebFacet)
+		}
+	}
+}
+
+sourceSets{
+	main{
+		java{
+			srcDir '/src'
+		}
+		resources{
+			srcDir '/src'
+		}
+		output.resourcesDir = '/build/classes'
+    	output.classesDir   = '/build/classes'
+	}
+}
+
+sourceSets.main.java.each{println 'java:'+it}
+sourceSets.main.resources.each{println 'resources:'+it}
+println 'classDir:'+sourceSets.main.output.classesDir
+sourceSets.main.output.each{println 'output each:'+it}
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+
+
+repositories {  
+    mavenCentral()
+}
+ 
+dependencies {
+	//servlet 3.1
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'commons-logging:commons-logging:1.1.1'
+    compile 'log4j:log4j:1.2.16'
+    compile 'org.bouncycastle:bcprov-jdk15on:1.54'
+    compile 'com.google.code.gson:gson:2.7'
+    
+    //GS1
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+	compile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.2'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient-win', version: '4.5.2'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient-cache', version: '4.5.2'
+	
+	
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.7.0'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    compile group: 'org.json', name: 'json', version: '20160212'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile group: 'javax.mail', name: 'javax.mail-api', version: '1.5.5'
+        		
+	//compile group: 'struts', name: 'struts', version: '1.2.4'
+    
+    //JAX-RS with Jersey
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0.1'
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.23.2'
+	compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.23.2'
+	compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: '2.23.2'
+	
+	//Reflections
+	compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+	
+	//Project Lib
+	providedCompile fileTree(dir: "${webAppDirName}/WEB-INF/lib", include: ['*.jar'])
+}
+
+
+compileJava{
+	println 'compileJava.classpath:'+compileJava.classpath
+	println 'compileJava destinationDir:'+destinationDir
+}
+
+jar{
+	destinationDir =  file("${webAppDirName}/WEB-INF/lib")
+	baseName = 'FrontMobileUtil'
+	source.each{println 'jar source:'+it}
+	println 'jar destinationDir:'+destinationDir
+	println 'jar archivePath:'+archivePath
+}
