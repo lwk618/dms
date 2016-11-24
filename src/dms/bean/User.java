@@ -13,7 +13,6 @@ public class User {
 	}
 	private int id;
 	private String loginId;
-	@JsonIgnore
 	private String password;
 	private String type;
 	private int airlineId;

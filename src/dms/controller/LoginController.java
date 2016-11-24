@@ -38,6 +38,9 @@ public class LoginController {
 	public RespResult login(User loginUser){
 		boolean success = false;
 		User user = userDAO.getByLoginId(loginUser.getLoginId());
+		
+		System.out.println(loginUser.getPassword());
+		System.out.println(user.getPassword());
 		if(user.getPassword().equals(loginUser.getPassword())){
 			SessionHelper.setUserId(request, user.getId());
 			success = true;
