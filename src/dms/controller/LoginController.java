@@ -52,6 +52,7 @@ public class LoginController {
 	public RespResult logout(){
 		boolean success = false;
 		request.getSession().invalidate();
+		success = true;
 		return new RespResult(success);
 	}
 	
