@@ -2,6 +2,7 @@ package dms.db.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,10 @@ public class DepartureSlotDAO extends BasicDAO<DepartureSlot> {
 	
 	public List<DepartureSlot> queryByAircraft(int aircraftId) {
 		return query("select * from `" + TABLE + "` where `" + COLUMN.AIRCRAFT_ID + "` = ?;", aircraftId);
+	}
+	
+	public List<DepartureSlot> queryByTimeRange(Timestamp from, Timestamp to){
+		return query("select * from `" + TABLE + "` where `" + COLUMN.SCHEDULED_PUSHBACK_TIME + "` between ? and ? ;", from, to);
 	}
 
 	@Override

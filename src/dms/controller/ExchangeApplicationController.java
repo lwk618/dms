@@ -3,6 +3,7 @@
  */
 package dms.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import dms.bean.Aircraft;
+import dms.bean.DepartureSlot;
 import dms.bean.ExchangeApplication;
 import dms.bean.RespResult;
 import dms.bean.User;
@@ -65,7 +67,20 @@ public class ExchangeApplicationController {
 	public RespResult create(ExchangeApplication exchangeApplication){
 		User user = SessionHelper.getUser(request);
 		exchangeApplication.setUserId(user.getId());
-		boolean success = exchangeApplicationDAO.insert(exchangeApplication);
+		DepartureSlot fromDS = departureSlotDAO.get(exchangeApplication.getFromDSId());
+
+		if (exchangeApplication.getToDSId() == 0) {
+			List<DepartureSlot> availableDSList = departureSlotDAO.queryByTimeRange(new Timestamp(System.currentTimeMillis()), fromDS.getScheduledPushbackTime());
+			if (availableDSList.size() > 0) {
+				exchangeApplication.setToDSId(availableDSList.get(0).getId());
+			}
+		}
+		
+		boolean success = false;
+		if (exchangeApplication.getToDSId() > 0) {
+			success = exchangeApplicationDAO.insert(exchangeApplication);
+		}
+		
 		return new RespResult(success);
 	}
 	
