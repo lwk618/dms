@@ -24,6 +24,7 @@ import dms.db.dao.AircraftDAO;
 import dms.db.dao.AirlineDAO;
 import dms.db.dao.DepartureSlotDAO;
 import dms.db.dao.ExchangeApplicationDAO;
+import dms.filter.LoggedInFilterBinding;
 
 /**
  * @author Kit
@@ -31,6 +32,7 @@ import dms.db.dao.ExchangeApplicationDAO;
  */
 @Path("/exchange-applications")
 @Produces({MediaType.APPLICATION_JSON})
+//@LoggedInFilterBinding
 public class ExchangeApplicationController {
 	@Context
 	private HttpServletRequest request;
@@ -59,16 +61,17 @@ public class ExchangeApplicationController {
 		return dataList;
 	}
 	
-//	@POST
-//	public RespResult create(ExchangeApplication exchangeApplication){
-//		User user = SessionHelper.getUser(request);
-//		exchangeApplication.setAirlineId(user.getAirlineId());
-//		boolean success = exchangeApplicationDAO.insert(exchangeApplication);
-//		return new RespResult();
-//	}
+	@POST
+	public RespResult create(ExchangeApplication exchangeApplication){
+		User user = SessionHelper.getUser(request);
+		exchangeApplication.setUserId(user.getId());
+		boolean success = exchangeApplicationDAO.insert(exchangeApplication);
+		return new RespResult(success);
+	}
 	
 	
 	@Path("/from")
+	@GET
 	public List<ExchangeApplication> getByFrom(){
 		User user = SessionHelper.getUser(request);
 		List<ExchangeApplication> dataList;
@@ -88,6 +91,7 @@ public class ExchangeApplicationController {
 	}
 	
 	@Path("/to")
+	@GET
 	public List<ExchangeApplication> getByTo(){
 		User user = SessionHelper.getUser(request);
 		List<ExchangeApplication> dataList;
@@ -116,19 +120,19 @@ public class ExchangeApplicationController {
 	@POST
 	public RespResult update(ExchangeApplication exchangeApplication){
 		boolean success = exchangeApplicationDAO.update(exchangeApplication);
-		return new RespResult();
+		return new RespResult(success);
 	}
 	
 	
 	@Path("{id}")
 	@DELETE 
 	public RespResult delete(@PathParam("id") int id){
-		boolean success;
+		boolean success = false;
 		ExchangeApplication exchangeApplication = new ExchangeApplication();
 		exchangeApplication.setId(id);
 		if (exchangeApplicationDAO.exist(exchangeApplication)) {
 			 success = exchangeApplicationDAO.delete(exchangeApplication);
 		}
-		return new RespResult();
+		return new RespResult(success);
 	}
 }

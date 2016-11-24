@@ -19,6 +19,7 @@ import dms.bean.Aircraft;
 import dms.bean.RespResult;
 import dms.bean.User;
 import dms.db.dao.AircraftDAO;
+import dms.filter.LoggedInFilterBinding;
 
 /**
  * @author Kit
@@ -26,6 +27,7 @@ import dms.db.dao.AircraftDAO;
  */
 @Path("/aircrafts")
 @Produces({MediaType.APPLICATION_JSON})
+//@LoggedInFilterBinding
 public class AircraftController {
 	@Context
 	private HttpServletRequest request;
@@ -50,7 +52,7 @@ public class AircraftController {
 		User user = SessionHelper.getUser(request);
 		aircraft.setAirlineId(user.getAirlineId());
 		boolean success = aircraftDAO.insert(aircraft);
-		return new RespResult();
+		return new RespResult(success);
 	}
 	
 	@Path("{id}")
@@ -63,19 +65,19 @@ public class AircraftController {
 	@POST
 	public RespResult update(Aircraft aircraft){
 		boolean success = aircraftDAO.update(aircraft);
-		return new RespResult();
+		return new RespResult(success);
 	}
 	
 	
 	@Path("{id}")
 	@DELETE 
 	public RespResult delete(@PathParam("id") int id){
-		boolean success;
+		boolean success = false;
 		Aircraft aircraft = new Aircraft();
 		aircraft.setId(id);
 		if (aircraftDAO.exist(aircraft)) {
 			 success = aircraftDAO.delete(aircraft);
 		}
-		return new RespResult();
+		return new RespResult(success);
 	}
 }

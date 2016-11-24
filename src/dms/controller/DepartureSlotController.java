@@ -24,6 +24,7 @@ import dms.bean.User;
 import dms.db.dao.AircraftDAO;
 import dms.db.dao.AirlineDAO;
 import dms.db.dao.DepartureSlotDAO;
+import dms.filter.LoggedInFilterBinding;
 
 /**
  * @author Kit
@@ -31,6 +32,7 @@ import dms.db.dao.DepartureSlotDAO;
  */
 @Path("/departure-slots")
 @Produces({MediaType.APPLICATION_JSON})
+//@LoggedInFilterBinding
 public class DepartureSlotController {
 	@Context
 	private HttpServletRequest request;
@@ -62,7 +64,7 @@ public class DepartureSlotController {
 		Airline airline = airlineDAO.get(user.getAirlineId());
 		departureSlot.setGateId(airline.getGateId());
 		boolean success = departureSlotDAO.insert(departureSlot);
-		return new RespResult();
+		return new RespResult(success);
 	}
 	
 	@Path("{id}")
@@ -78,19 +80,30 @@ public class DepartureSlotController {
 		Airline airline = airlineDAO.get(user.getAirlineId());
 		departureSlot.setGateId(airline.getGateId());
 		boolean success = departureSlotDAO.update(departureSlot);
-		return new RespResult();
+		return new RespResult(success);
 	}
 	
 	
 	@Path("{id}")
 	@DELETE 
 	public RespResult delete(@PathParam("id") int id){
-		boolean success;
+		boolean success = false;
 		DepartureSlot departureSlot = new DepartureSlot();
 		departureSlot.setId(id);
 		if (departureSlotDAO.exist(departureSlot)) {
 			 success = departureSlotDAO.delete(departureSlot);
 		}
-		return new RespResult();
+		return new RespResult(success);
+	}
+	
+	@Path("airlines/{airlineId}")
+	@GET
+	public List<DepartureSlot> queryDepartureSlotByAirline(@PathParam("airlineId") int airlineId){
+		List<DepartureSlot> dataList = new ArrayList<>();
+		List<Aircraft> aircraftList = aircraftDAO.queryByAirlineId(airlineId);
+		aircraftList.forEach(aircraft -> {
+			dataList.addAll(departureSlotDAO.queryByAircraft(aircraft.getId()));
+		});
+		return dataList;
 	}
 }

@@ -6,6 +6,11 @@ public class ExchangeApplication {
 		public static String EARLY = "e";
 	}
 	
+	public static class STATUS{
+		public static String ACCEPTED = "accepted";
+		public static String REJECTED = "rejected";
+	}
+	
 	private int id;
 	private String type;
 	private String status;

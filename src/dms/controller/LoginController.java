@@ -29,27 +29,27 @@ public class LoginController {
 	HttpServletRequest request;
 	
 	@GET
-	public RespResult isLoggedIn(){
+	public boolean isLoggedIn(){
 		boolean loggedIn = request.getSession().getAttribute("userid") != null;
-		return new RespResult();
+		return loggedIn;
 	}
 	
 	@POST
 	public RespResult login(User loginUser){
-		boolean success;
+		boolean success = false;
 		User user = userDAO.getByLoginId(loginUser.getLoginId());
 		if(user.getPassword().equals(loginUser.getPassword())){
 			SessionHelper.setUserId(request, user.getId());
 			success = true;
 		}
-		return new RespResult();
+		return new RespResult(success);
 	}
 	
 	@DELETE
 	public RespResult logout(){
-		boolean success;
+		boolean success = false;
 		request.getSession().invalidate();
-		return new RespResult();
+		return new RespResult(success);
 	}
 	
 	

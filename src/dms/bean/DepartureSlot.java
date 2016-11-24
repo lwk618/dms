@@ -5,6 +5,15 @@ import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DepartureSlot {
+	
+	public static class STATUS{
+		public static String AVAIABLE = "avaiable";
+		public static String PENDING = "pending";
+		public static String READY = "ready";
+		public static String DEPARTURE = "departure";
+		public static String CANCEL = "cancel";
+	}
+	
 	private int id;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
 	private Timestamp scheduledPushbackTime;

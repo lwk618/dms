@@ -20,6 +20,7 @@ import dms.bean.RespResult;
 import dms.bean.User;
 import dms.bean.Airline;
 import dms.db.dao.AirlineDAO;
+import dms.filter.LoggedInFilterBinding;
 
 /**
  * @author Kit
@@ -27,6 +28,7 @@ import dms.db.dao.AirlineDAO;
  */
 @Path("/airlines")
 @Produces({MediaType.APPLICATION_JSON})
+//@LoggedInFilterBinding
 public class AirlineController {
 	@Context
 	private HttpServletRequest request;
@@ -49,7 +51,7 @@ public class AirlineController {
 	@POST
 	public RespResult create(Airline airline){
 		boolean success = airlineDAO.insert(airline);
-		return new RespResult();
+		return new RespResult(success);
 	}
 	
 	@Path("{id}")
@@ -62,19 +64,19 @@ public class AirlineController {
 	@POST
 	public RespResult update(Airline airline){
 		boolean success = airlineDAO.update(airline);
-		return new RespResult();
+		return new RespResult(success);
 	}
 	
 	
 	@Path("{id}")
 	@DELETE 
 	public RespResult delete(@PathParam("id") int id){
-		boolean success;
+		boolean success = false;
 		Airline airline = new Airline();
 		airline.setId(id);
 		if (airlineDAO.exist(airline)) {
 			 success = airlineDAO.delete(airline);
 		}
-		return new RespResult();
+		return new RespResult(success);
 	}
 }
