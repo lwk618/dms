@@ -40,6 +40,10 @@ public class DepartureSlotDAO extends BasicDAO<DepartureSlot> {
 		return query("select * from `" + TABLE + "`where `" + COLUMN.SCHEDULED_PUSHBACK_TIME + "` between ? and ? ;", from, to);
 	}
 	
+	public List<DepartureSlot> queryByStatus(String status, String from, String to) {
+		return query("select * from `" + TABLE + "`where `status` = ? and `" + COLUMN.SCHEDULED_PUSHBACK_TIME + "` between ? and ? ;", status, from, to);
+	} 
+	
 	public List<DepartureSlot> queryByAircraft(int aircraftId) {
 		return query("select * from `" + TABLE + "` where `" + COLUMN.AIRCRAFT_ID + "` = ?;", aircraftId);
 	}
@@ -48,8 +52,8 @@ public class DepartureSlotDAO extends BasicDAO<DepartureSlot> {
 		return query("select * from `" + TABLE + "` where `" + COLUMN.AIRCRAFT_ID + "` = ? and `" + COLUMN.SCHEDULED_PUSHBACK_TIME + "` between ? and ?;", aircraftId, from, to);
 	}
 
-	public List<DepartureSlot> queryByAircraftOrStatus(int aircraftId, String status, String from, String to){
-		return query("select * from `" + TABLE + "` where (`" + COLUMN.AIRCRAFT_ID + "` = ? or `status` = ?) and `" + COLUMN.SCHEDULED_PUSHBACK_TIME + "` between ? and ?;", aircraftId, status, from, to);
+	public List<DepartureSlot> queryByAircraftAndStatus(int aircraftId, String status, String from, String to){
+		return query("select * from `" + TABLE + "` where `" + COLUMN.AIRCRAFT_ID + "` = ? and `status` = ? and `" + COLUMN.SCHEDULED_PUSHBACK_TIME + "` between ? and ?;", aircraftId, status, from, to);
 	}
 	
 	@Override

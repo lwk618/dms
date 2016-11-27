@@ -44,18 +44,28 @@ public class DepartureSlotController {
 	private AirlineDAO airlineDAO = new AirlineDAO();
 	private AircraftDAO aircraftDAO = new AircraftDAO(); 
 	@GET
-	public List<DepartureSlot> get(@QueryParam("status")@DefaultValue("available") String status, @QueryParam("from")@DefaultValue("0001-01-01") String from, @QueryParam("to")@DefaultValue("9999-12-30") String to){
+	public List<DepartureSlot> get(@QueryParam("status")@DefaultValue("") String status, @QueryParam("from")@DefaultValue("0001-01-01") String from, @QueryParam("to")@DefaultValue("9999-12-30") String to){
 		User user = SessionHelper.getUser(request);
 		List<DepartureSlot> dataList;
-		if (User.TYPE.RAMP_CONTROL.equalsIgnoreCase(user.getType())) {
-			dataList = departureSlotDAO.query(from, to);
+		if (DepartureSlot.STATUS.AVAILABLE.equalsIgnoreCase(status)) {
+			dataList = departureSlotDAO.queryByStatus(status, from, to);
 		}else{
-			dataList = new ArrayList<>();
-			int airlineId = user.getAirlineId();
-			List<Aircraft> aircraftList = aircraftDAO.queryByAirlineId(airlineId);
-			aircraftList.forEach(aircraft -> {
-				dataList.addAll(departureSlotDAO.queryByAircraftOrStatus(aircraft.getId(), status, from, to));
-			});
+			if (User.TYPE.RAMP_CONTROL.equalsIgnoreCase(user.getType())) {
+				dataList = departureSlotDAO.query(from, to);
+			}else{
+				dataList = new ArrayList<>();
+				int airlineId = user.getAirlineId();
+				List<Aircraft> aircraftList = aircraftDAO.queryByAirlineId(airlineId);
+				aircraftList.forEach(aircraft -> {
+					List<DepartureSlot> subList = new ArrayList<>();
+					if ("".equals(status)) {
+						subList = departureSlotDAO.queryByAircraft(aircraft.getId(), from, to);
+					}else{
+						subList = departureSlotDAO.queryByAircraftAndStatus(aircraft.getId(), status, from, to);
+					}
+					dataList.addAll(subList);
+				});
+			}
 		}
 		
 		return dataList;
@@ -69,6 +79,7 @@ public class DepartureSlotController {
 		boolean success = departureSlotDAO.insert(departureSlot);
 		return new RespResult(success);
 	}
+		
 	
 	@Path("{id}")
 	@GET
