@@ -27,7 +27,7 @@ import dms.filter.LoggedInFilterBinding;
  */
 @Path("/aircrafts")
 @Produces({MediaType.APPLICATION_JSON})
-//@LoggedInFilterBinding
+@LoggedInFilterBinding
 public class AircraftController {
 	@Context
 	private HttpServletRequest request;

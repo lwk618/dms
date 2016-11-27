@@ -26,7 +26,7 @@ import dms.filter.LoggedInFilterBinding;
  */
 @Path("/report")
 @Produces({MediaType.APPLICATION_JSON})
-//@LoggedInFilterBinding
+@LoggedInFilterBinding
 public class ReportController {
 	@Context
 	private HttpServletRequest request;

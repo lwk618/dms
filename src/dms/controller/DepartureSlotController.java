@@ -32,7 +32,7 @@ import dms.filter.LoggedInFilterBinding;
  */
 @Path("/departure-slots")
 @Produces({MediaType.APPLICATION_JSON})
-//@LoggedInFilterBinding
+@LoggedInFilterBinding
 public class DepartureSlotController {
 	@Context
 	private HttpServletRequest request;

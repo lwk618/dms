@@ -34,7 +34,7 @@ import dms.filter.LoggedInFilterBinding;
  */
 @Path("/exchange-applications")
 @Produces({MediaType.APPLICATION_JSON})
-//@LoggedInFilterBinding
+@LoggedInFilterBinding
 public class ExchangeApplicationController {
 	@Context
 	private HttpServletRequest request;

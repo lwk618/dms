@@ -41,7 +41,7 @@ import dms.filter.LoggedInFilterBinding;
  */
 @Path("/users")
 @Produces({MediaType.APPLICATION_JSON})
-//@LoggedInFilterBinding
+@LoggedInFilterBinding
 public class UserController {
 	private UserDAO userDAO  = new UserDAO();
 	
