@@ -134,7 +134,29 @@ public class ExchangeApplicationController {
 	@Path("{id}")
 	@POST
 	public RespResult update(ExchangeApplication exchangeApplication){
-		boolean success = exchangeApplicationDAO.update(exchangeApplication);
+		boolean success = false;
+		if (ExchangeApplication.STATUS.ACCEPTED.equalsIgnoreCase(exchangeApplication.getStatus())) {
+			DepartureSlot fromDS = departureSlotDAO.get(exchangeApplication.getFromDSId());
+			DepartureSlot toDS = departureSlotDAO.get(exchangeApplication.getToDSId());
+			DepartureSlot tempDS = departureSlotDAO.get(exchangeApplication.getToDSId());
+			
+			toDS.setRequiredPushbackTime(fromDS.getRequiredPushbackTime());
+			toDS.setActualPushbackTime(fromDS.getActualPushbackTime());
+			toDS.setGateId(fromDS.getGateId());
+			toDS.setStatus(fromDS.getStatus());
+			toDS.setAircraftId(fromDS.getAircraftId());
+			
+			departureSlotDAO.update(toDS);
+			
+			fromDS.setRequiredPushbackTime(tempDS.getRequiredPushbackTime());
+			fromDS.setActualPushbackTime(tempDS.getActualPushbackTime());
+			fromDS.setGateId(tempDS.getGateId());
+			fromDS.setStatus(tempDS.getStatus());
+			fromDS.setAircraftId(tempDS.getAircraftId());
+			
+			departureSlotDAO.update(fromDS);
+		}
+		success = exchangeApplicationDAO.update(exchangeApplication);
 		return new RespResult(success);
 	}
 	

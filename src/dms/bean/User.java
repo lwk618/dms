@@ -15,7 +15,7 @@ public class User {
 	private String loginId;
 	private String password;
 	private String type;
-	private int airlineId;
+	private Integer airlineId;
 	private String status;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
 	private Timestamp lastLogin;
@@ -46,10 +46,10 @@ public class User {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public int getAirlineId() {
+	public Integer getAirlineId() {
 		return airlineId;
 	}
-	public void setAirlineId(int airlineId) {
+	public void setAirlineId(Integer airlineId) {
 		this.airlineId = airlineId;
 	}
 	public String getStatus() {

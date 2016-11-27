@@ -20,7 +20,7 @@ public abstract class BasicDAO<T> implements DAOInterface<T> {
 
 	protected int insert(String sql, Object... args) {
 		try (Connection conn = DBConnector.getDBConnection();
-				PreparedStatement statement = conn.prepareStatement(sql)) {
+				PreparedStatement statement = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 			for (int i = 0; i < args.length; i++) {
 				statement.setObject(i + 1, args[i]);
 			}

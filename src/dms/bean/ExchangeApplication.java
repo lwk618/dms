@@ -7,8 +7,10 @@ public class ExchangeApplication {
 	}
 	
 	public static class STATUS{
+		public static String PENDING = "pending";
 		public static String ACCEPTED = "accepted";
 		public static String REJECTED = "rejected";
+		public static String CANCEL = "cancel";
 	}
 	
 	private int id;

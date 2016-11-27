@@ -37,6 +37,7 @@ public class UserDAO extends BasicDAO<User> {
 
 	@Override
 	public boolean insert(User bean) {
+		System.out.println("airlineId:"+bean.getAirlineId());
 		int id = insert("insert into `" + TABLE + "` ("
 				+ " `" + COLUMN.LOGIN_ID + "`"
 				+ ", `" + COLUMN.PASSWORD + "`"
