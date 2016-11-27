@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2016 at 04:05 PM
+-- Generation Time: Nov 27, 2016 at 02:55 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -27,20 +27,20 @@ USE `dms`;
 -- Table structure for table `aircraft`
 --
 
-DROP TABLE IF EXISTS `aircraft`;
 CREATE TABLE IF NOT EXISTS `aircraft` (
-  `aircraftId` int(10) NOT NULL,
+  `aircraftId` int(10) NOT NULL AUTO_INCREMENT,
   `airlineId` int(10) NOT NULL,
   `code` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`aircraftId`),
   KEY `FKAircraft800507` (`airlineId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- RELATIONS FOR TABLE `aircraft`:
---   `airlineId`
---       `airline` -> `airlineId`
+-- Dumping data for table `aircraft`
 --
+
+INSERT INTO `aircraft` (`aircraftId`, `airlineId`, `code`) VALUES
+(1, 1, 'A350');
 
 -- --------------------------------------------------------
 
@@ -48,13 +48,19 @@ CREATE TABLE IF NOT EXISTS `aircraft` (
 -- Table structure for table `airline`
 --
 
-DROP TABLE IF EXISTS `airline`;
 CREATE TABLE IF NOT EXISTS `airline` (
   `airlineId` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `gateId` char(2) DEFAULT NULL,
   PRIMARY KEY (`airlineId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `airline`
+--
+
+INSERT INTO `airline` (`airlineId`, `name`, `gateId`) VALUES
+(1, 'Hong Kong Airline', 'A1');
 
 -- --------------------------------------------------------
 
@@ -62,7 +68,6 @@ CREATE TABLE IF NOT EXISTS `airline` (
 -- Table structure for table `departureslot`
 --
 
-DROP TABLE IF EXISTS `departureslot`;
 CREATE TABLE IF NOT EXISTS `departureslot` (
   `slotId` int(10) NOT NULL AUTO_INCREMENT,
   `scheduledPushbackTime` timestamp NULL DEFAULT NULL,
@@ -70,16 +75,101 @@ CREATE TABLE IF NOT EXISTS `departureslot` (
   `actualPushbackTime` timestamp NULL DEFAULT NULL,
   `gateId` varchar(10) DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
-  `aircraftId` int(10) NOT NULL,
+  `aircraftId` int(10) DEFAULT NULL,
   PRIMARY KEY (`slotId`),
   KEY `FKDeparture 381542` (`aircraftId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
 
 --
--- RELATIONS FOR TABLE `departureslot`:
---   `aircraftId`
---       `aircraft` -> `aircraftId`
+-- Dumping data for table `departureslot`
 --
+
+INSERT INTO `departureslot` (`slotId`, `scheduledPushbackTime`, `requiredPushbackTime`, `actualPushbackTime`, `gateId`, `status`, `aircraftId`) VALUES
+(1, '2016-11-26 16:01:30', NULL, NULL, 'A1', 'cancel', 1),
+(2, '2016-11-26 16:03:00', NULL, NULL, 'A1', 'pending', 1),
+(3, '2016-11-26 16:04:30', '2016-11-26 16:04:32', '2016-11-26 16:04:41', 'A1', 'departure', 1),
+(4, '2016-11-26 16:06:00', NULL, NULL, NULL, 'available', NULL),
+(5, '2016-11-26 16:07:30', NULL, NULL, NULL, 'available', NULL),
+(6, '2016-11-26 16:09:00', NULL, NULL, NULL, 'available', NULL),
+(7, '2016-11-26 16:10:30', NULL, NULL, NULL, 'available', NULL),
+(8, '2016-11-26 16:12:00', NULL, NULL, NULL, 'available', NULL),
+(9, '2016-11-26 16:13:30', NULL, NULL, NULL, 'available', NULL),
+(10, '2016-11-26 16:15:00', NULL, NULL, NULL, 'available', NULL),
+(11, '2016-11-26 16:16:30', NULL, NULL, NULL, 'available', NULL),
+(12, '2016-11-26 16:18:00', NULL, NULL, NULL, 'available', NULL),
+(13, '2016-11-26 16:19:30', NULL, NULL, NULL, 'available', NULL),
+(14, '2016-11-26 16:21:00', NULL, NULL, NULL, 'available', NULL),
+(15, '2016-11-26 16:22:30', NULL, NULL, NULL, 'available', NULL),
+(16, '2016-11-26 16:24:00', NULL, NULL, NULL, 'available', NULL),
+(17, '2016-11-26 16:25:30', NULL, NULL, NULL, 'available', NULL),
+(18, '2016-11-26 16:27:00', NULL, NULL, NULL, 'available', NULL),
+(19, '2016-11-26 16:28:30', NULL, NULL, NULL, 'available', NULL),
+(20, '2016-11-26 16:30:00', NULL, NULL, NULL, 'available', NULL),
+(21, '2016-11-26 16:31:30', NULL, NULL, NULL, 'available', NULL),
+(22, '2016-11-26 16:33:00', NULL, NULL, NULL, 'available', NULL),
+(23, '2016-11-26 16:34:30', NULL, NULL, NULL, 'available', NULL),
+(24, '2016-11-26 16:36:00', NULL, NULL, NULL, 'available', NULL),
+(25, '2016-11-26 16:37:30', NULL, NULL, NULL, 'available', NULL),
+(26, '2016-11-26 16:39:00', NULL, NULL, NULL, 'available', NULL),
+(27, '2016-11-26 16:40:30', NULL, NULL, NULL, 'available', NULL),
+(28, '2016-11-26 16:42:00', NULL, NULL, NULL, 'available', NULL),
+(29, '2016-11-26 16:43:30', NULL, NULL, NULL, 'available', NULL),
+(30, '2016-11-26 16:45:00', NULL, NULL, NULL, 'available', NULL),
+(31, '2016-11-26 16:46:30', NULL, NULL, NULL, 'available', NULL),
+(32, '2016-11-26 16:48:00', NULL, NULL, NULL, 'available', NULL),
+(33, '2016-11-26 16:49:30', NULL, NULL, NULL, 'available', NULL),
+(34, '2016-11-26 16:51:00', NULL, NULL, NULL, 'available', NULL),
+(35, '2016-11-26 16:52:30', NULL, NULL, NULL, 'available', NULL),
+(36, '2016-11-26 16:54:00', NULL, NULL, NULL, 'available', NULL),
+(37, '2016-11-26 16:55:30', NULL, NULL, NULL, 'available', NULL),
+(38, '2016-11-26 16:57:00', NULL, NULL, NULL, 'available', NULL),
+(39, '2016-11-26 16:58:30', NULL, NULL, NULL, 'available', NULL),
+(40, '2016-11-26 17:00:00', NULL, NULL, NULL, 'available', NULL),
+(41, '2016-11-26 17:01:30', NULL, NULL, NULL, 'available', NULL),
+(42, '2016-11-26 17:03:00', NULL, NULL, NULL, 'available', NULL),
+(43, '2016-11-26 17:04:30', NULL, NULL, NULL, 'available', NULL),
+(44, '2016-11-26 17:06:00', NULL, NULL, NULL, 'available', NULL),
+(45, '2016-11-26 17:07:30', NULL, NULL, NULL, 'available', NULL),
+(46, '2016-11-26 17:09:00', NULL, NULL, NULL, 'available', NULL),
+(47, '2016-11-26 17:10:30', NULL, NULL, NULL, 'available', NULL),
+(48, '2016-11-26 17:12:00', NULL, NULL, NULL, 'available', NULL),
+(49, '2016-11-26 17:13:30', NULL, NULL, NULL, 'available', NULL),
+(50, '2016-11-26 17:15:00', NULL, NULL, NULL, 'available', NULL),
+(51, '2016-11-26 17:16:30', NULL, NULL, NULL, 'available', NULL),
+(52, '2016-11-26 17:18:00', NULL, NULL, NULL, 'available', NULL),
+(53, '2016-11-26 17:19:30', NULL, NULL, NULL, 'available', NULL),
+(54, '2016-11-26 17:21:00', NULL, NULL, NULL, 'available', NULL),
+(55, '2016-11-26 17:22:30', NULL, NULL, NULL, 'available', NULL),
+(56, '2016-11-26 17:24:00', NULL, NULL, NULL, 'available', NULL),
+(57, '2016-11-26 17:25:30', NULL, NULL, NULL, 'available', NULL),
+(58, '2016-11-26 17:27:00', NULL, NULL, NULL, 'available', NULL),
+(59, '2016-11-26 17:28:30', NULL, NULL, NULL, 'available', NULL),
+(60, '2016-11-26 17:30:00', NULL, NULL, NULL, 'available', NULL),
+(61, '2016-11-26 17:31:30', NULL, NULL, NULL, 'available', NULL),
+(62, '2016-11-26 17:33:00', NULL, NULL, NULL, 'available', NULL),
+(63, '2016-11-26 17:34:30', NULL, NULL, NULL, 'available', NULL),
+(64, '2016-11-26 17:36:00', NULL, NULL, NULL, 'available', NULL),
+(65, '2016-11-26 17:37:30', NULL, NULL, NULL, 'available', NULL),
+(66, '2016-11-26 17:39:00', NULL, NULL, NULL, 'available', NULL),
+(67, '2016-11-26 17:40:30', NULL, NULL, NULL, 'available', NULL),
+(68, '2016-11-26 17:42:00', NULL, NULL, NULL, 'available', NULL),
+(69, '2016-11-26 17:43:30', NULL, NULL, NULL, 'available', NULL),
+(70, '2016-11-26 17:45:00', NULL, NULL, NULL, 'available', NULL),
+(71, '2016-11-26 17:46:30', NULL, NULL, NULL, 'available', NULL),
+(72, '2016-11-26 17:48:00', NULL, NULL, NULL, 'available', NULL),
+(73, '2016-11-26 17:49:30', NULL, NULL, NULL, 'available', NULL),
+(74, '2016-11-26 17:51:00', NULL, NULL, NULL, 'available', NULL),
+(75, '2016-11-26 17:52:30', NULL, NULL, NULL, 'available', NULL),
+(76, '2016-11-26 17:54:00', NULL, NULL, NULL, 'available', NULL),
+(77, '2016-11-26 17:55:30', NULL, NULL, NULL, 'available', NULL),
+(78, '2016-11-26 17:57:00', NULL, NULL, NULL, 'available', NULL),
+(79, '2016-11-26 17:58:30', NULL, NULL, NULL, 'available', NULL),
+(80, '2016-11-26 18:00:00', NULL, NULL, NULL, 'available', NULL),
+(81, '2016-11-26 18:00:00', NULL, NULL, NULL, 'available', NULL),
+(82, NULL, NULL, NULL, 'A1', NULL, 1),
+(83, NULL, NULL, NULL, 'A1', NULL, 1),
+(84, NULL, NULL, NULL, 'A1', NULL, 1),
+(85, NULL, NULL, NULL, 'A1', 'pending', 1);
 
 -- --------------------------------------------------------
 
@@ -87,7 +177,6 @@ CREATE TABLE IF NOT EXISTS `departureslot` (
 -- Table structure for table `exchangeapplication`
 --
 
-DROP TABLE IF EXISTS `exchangeapplication`;
 CREATE TABLE IF NOT EXISTS `exchangeapplication` (
   `exchangeId` varchar(10) NOT NULL,
   `type` varchar(1) DEFAULT NULL,
@@ -101,23 +190,12 @@ CREATE TABLE IF NOT EXISTS `exchangeapplication` (
   KEY `FKExchange A308785` (`toDsId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- RELATIONS FOR TABLE `exchangeapplication`:
---   `toDsId`
---       `departureslot` -> `slotId`
---   `userId`
---       `user` -> `userId`
---   `fromDsId`
---       `departureslot` -> `slotId`
---
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `userId` int(10) NOT NULL AUTO_INCREMENT,
   `loginId` varchar(20) DEFAULT NULL,
@@ -128,20 +206,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `lastLogin` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`userId`),
   KEY `FKUser641891` (`airlineId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- RELATIONS FOR TABLE `user`:
---   `airlineId`
---       `airline` -> `airlineId`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`userId`, `loginId`, `password`, `type`, `airlineId`, `status`, `lastLogin`) VALUES
-(1, 'rampcontrol', 'rampcontrol', 'r', NULL, 'Active', '2016-11-20 16:00:00');
+(1, 'rampcontrol', 'rampcontrol', 'r', NULL, 'Active', '2016-11-20 16:00:00'),
+(2, 'rampcontrol2', 'rampcontrol2', 'r', NULL, 'Active', NULL),
+(3, 'airline', 'airline', 'a', 1, 'Active', NULL);
 
 --
 -- Constraints for dumped tables
@@ -163,15 +237,15 @@ ALTER TABLE `departureslot`
 -- Constraints for table `exchangeapplication`
 --
 ALTER TABLE `exchangeapplication`
-  ADD CONSTRAINT `FKExchange A308785` FOREIGN KEY (`toDsId`) REFERENCES `departureslot` (`slotId`),
   ADD CONSTRAINT `FKExchange A184445` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
-  ADD CONSTRAINT `FKExchange A264376` FOREIGN KEY (`fromDsId`) REFERENCES `departureslot` (`slotId`);
+  ADD CONSTRAINT `FKExchange A264376` FOREIGN KEY (`fromDsId`) REFERENCES `departureslot` (`slotId`),
+  ADD CONSTRAINT `FKExchange A308785` FOREIGN KEY (`toDsId`) REFERENCES `departureslot` (`slotId`);
 
 --
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `FKUser641891` FOREIGN KEY (`airlineId`) REFERENCES `airline` (`airlineId`);
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`airlineId`) REFERENCES `airline` (`airlineId`) ON DELETE SET NULL;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
