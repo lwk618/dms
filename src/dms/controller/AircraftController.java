@@ -19,6 +19,7 @@ import dms.bean.Aircraft;
 import dms.bean.RespResult;
 import dms.bean.User;
 import dms.db.dao.AircraftDAO;
+import dms.db.dao.UserDAO;
 import dms.filter.LoggedInFilterBinding;
 
 /**
@@ -38,7 +39,7 @@ public class AircraftController {
 	public List<Aircraft> get(){
 		User user = SessionHelper.getUser(request);
 		List<Aircraft> dataList;
-		if (user.getAirlineId() == 0) {
+		if (User.TYPE.RAMP_CONTROL.equalsIgnoreCase(user.getType())) {
 			dataList = aircraftDAO.query();
 		}else{
 			dataList = aircraftDAO.queryByAirlineId(user.getAirlineId());

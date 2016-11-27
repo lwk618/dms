@@ -91,7 +91,7 @@ public class ReportDAO {
 					+ " status = 'departure' "
 					+ " and scheduledPushbackTime between ? and ? "
 					+ " and aircraftId in (select aircraftId from aircraft where airlineId = ?) "
-					+ " and slotId not in (select toDsId from exchangeapplication where `type` = 'delay' and `status` = `accepted`)";
+					+ " and slotId not in (select toDsId from exchangeapplication where `type` = 'delay' and `status` = 'accepted')";
 			
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, from);
@@ -114,7 +114,7 @@ public class ReportDAO {
 					+ " status = 'departure' "
 					+ " and scheduledPushbackTime between ? and ? "
 					+ " and aircraftId in (select aircraftId from aircraft where airlineId = ?) "
-					+ " and slotId in (select toDsId from exchangeapplication where `type` = 'delay' and `status` = `accepted`)";
+					+ " and slotId in (select toDsId from exchangeapplication where `type` = 'delay' and `status` = 'accepted')";
 			
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, from);

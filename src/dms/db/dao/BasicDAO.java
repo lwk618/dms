@@ -74,6 +74,7 @@ public abstract class BasicDAO<T> implements DAOInterface<T> {
 	protected List<T> query(String sql, Object... args) {
 		try (Connection conn = DBConnector.getDBConnection();
 				PreparedStatement statement = conn.prepareStatement(sql)) {
+			System.out.println(sql);
 			for (int i = 0; i < args.length; i++) {
 				statement.setObject(i + 1, args[i]);
 			}

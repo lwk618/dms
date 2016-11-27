@@ -70,7 +70,7 @@ public class ExchangeApplicationController {
 		DepartureSlot fromDS = departureSlotDAO.get(exchangeApplication.getFromDSId());
 
 		if (exchangeApplication.getToDSId() == 0) {
-			List<DepartureSlot> availableDSList = departureSlotDAO.queryByTimeRange(new Timestamp(System.currentTimeMillis()), fromDS.getScheduledPushbackTime());
+			List<DepartureSlot> availableDSList = departureSlotDAO.query(new Timestamp(System.currentTimeMillis()), fromDS.getScheduledPushbackTime());
 			if (availableDSList.size() > 0) {
 				exchangeApplication.setToDSId(availableDSList.get(0).getId());
 			}

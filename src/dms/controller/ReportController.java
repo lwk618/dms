@@ -35,19 +35,19 @@ public class ReportController {
 
 	@Path("r1")
 	@GET
-	public Map<String, Integer> getR1(@QueryParam("from") @DefaultValue("0000-00-00") String from, @QueryParam("to") @DefaultValue("9999-99-99") String to) {
+	public Map<String, Integer> getR1(@QueryParam("from") @DefaultValue("0001-01-01") String from, @QueryParam("to") @DefaultValue("9999-12-30") String to) {
 		return reportDAO.getReportGroupByHour(from, to);
 	}
 
 	@Path("r2")
 	@GET
-	public Map<String, Integer> getR2(@QueryParam("from") @DefaultValue("0000-00-00") String from, @QueryParam("to") @DefaultValue("9999-99-99") String to) {
+	public Map<String, Integer> getR2(@QueryParam("from") @DefaultValue("0001-01-01") String from, @QueryParam("to") @DefaultValue("9999-12-30") String to) {
 		return reportDAO.getReportGroupByMonth(from, to);
 	}
 
 	@Path("r3")
 	@GET
-	public Map<String, Double> getR3(@QueryParam("from") @DefaultValue("0000-00-00") String from, @QueryParam("to") @DefaultValue("9999-99-99") String to) {
+	public Map<String, Double> getR3(@QueryParam("from") @DefaultValue("0001-01-01") String from, @QueryParam("to") @DefaultValue("9999-12-30") String to) {
 		User user = SessionHelper.getUser(request);
 		int airlineId = user.getAirlineId();
 		int totalDeparture = reportDAO.getTotalDeparture(airlineId, from, to);

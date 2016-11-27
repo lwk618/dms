@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class DepartureSlot {
 	
 	public static class STATUS{
-		public static String AVAIABLE = "avaiable";
+		public static String AVAILABLE = "available";
 		public static String PENDING = "pending";
 		public static String READY = "ready";
 		public static String DEPARTURE = "departure";
@@ -15,15 +15,15 @@ public class DepartureSlot {
 	}
 	
 	private int id;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	private Timestamp scheduledPushbackTime;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	private Timestamp requiredPushbackTime;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	private Timestamp actualPushbackTime;
 	private String gateId;
 	private String status;
-	private int aircraftId;
+	private Integer aircraftId;
 	
 	public int getId() {
 		return id;
@@ -61,10 +61,10 @@ public class DepartureSlot {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getAircraftId() {
+	public Integer getAircraftId() {
 		return aircraftId;
 	}
-	public void setAircraftId(int aircraftId) {
+	public void setAircraftId(Integer aircraftId) {
 		this.aircraftId = aircraftId;
 	}
 }
