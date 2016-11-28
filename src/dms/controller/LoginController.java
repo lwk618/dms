@@ -34,6 +34,7 @@ public class LoginController {
 		return loggedIn;
 	}
 	
+	
 	@POST
 	public RespResult login(User loginUser){
 		boolean success = false;
@@ -47,6 +48,14 @@ public class LoginController {
 		}
 		return new RespResult(success);
 	}
+	
+	@Path("type")
+	@GET
+	public String getLoginType(){
+		User user = SessionHelper.getUser(request);
+		return user.getType();
+	}
+	
 	
 	@DELETE
 	public RespResult logout(){
