@@ -11,6 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.json.JSONObject;
 
 import dms.bean.RespResult;
 import dms.bean.User;
@@ -51,9 +54,13 @@ public class LoginController {
 	
 	@Path("type")
 	@GET
-	public String getLoginType(){
-		User user = SessionHelper.getUser(request);
-		return user.getType();
+	public Response getLoginType(){
+		String userType="";
+		if(request.getSession().getAttribute("userid")!=null){
+			User user = SessionHelper.getUser(request);
+			userType = user.getType();
+		}
+		return Response.ok(new JSONObject().put("type", userType).toString()).build();
 	}
 	
 	
