@@ -3,6 +3,8 @@
  */
 package dms.controller;
 
+import java.sql.Timestamp;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -47,7 +49,8 @@ public class LoginController {
 		System.out.println(user.getPassword());
 		if(user.getPassword().equals(loginUser.getPassword())){
 			SessionHelper.setUserId(request, user.getId());
-			success = true;
+			user.setLastLogin(new Timestamp(System.currentTimeMillis()));
+			success = userDAO.update(user);
 		}
 		return new RespResult(success);
 	}

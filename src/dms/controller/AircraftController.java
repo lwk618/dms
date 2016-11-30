@@ -39,7 +39,8 @@ public class AircraftController {
 	public List<Aircraft> get(){
 		User user = SessionHelper.getUser(request);
 		List<Aircraft> dataList;
-		if (User.TYPE.RAMP_CONTROL.equalsIgnoreCase(user.getType())) {
+		if (User.TYPE.RAMP_CONTROL.equalsIgnoreCase(user.getType())
+				|| User.TYPE.STATION_MANAGER.equalsIgnoreCase(user.getType())) {
 			dataList = aircraftDAO.query();
 		}else{
 			dataList = aircraftDAO.queryByAirlineId(user.getAirlineId());

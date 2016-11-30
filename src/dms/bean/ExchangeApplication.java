@@ -78,4 +78,10 @@ public class ExchangeApplication {
 //	public void setToDS(DepartureSlot toDS) {
 //		this.toDS = toDS;
 //	}
+	@Override
+	public String toString() {
+		return "ExchangeApplication [id=" + id + ", type=" + type + ", status=" + status + ", userId=" + userId
+				+ ", fromDSId=" + fromDSId + ", toDSId=" + toDSId + "]";
+	}
+	
 }

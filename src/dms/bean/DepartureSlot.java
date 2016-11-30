@@ -67,4 +67,11 @@ public class DepartureSlot {
 	public void setAircraftId(Integer aircraftId) {
 		this.aircraftId = aircraftId;
 	}
+	@Override
+	public String toString() {
+		return "DepartureSlot [id=" + id + ", scheduledPushbackTime=" + scheduledPushbackTime
+				+ ", requiredPushbackTime=" + requiredPushbackTime + ", actualPushbackTime=" + actualPushbackTime
+				+ ", gateId=" + gateId + ", status=" + status + ", aircraftId=" + aircraftId + "]";
+	}
+	
 }

@@ -19,6 +19,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import org.bouncycastle.jcajce.provider.asymmetric.dsa.DSASigner.dsa224;
+
 import dms.bean.Aircraft;
 import dms.bean.Airline;
 import dms.bean.DepartureSlot;
@@ -48,11 +50,38 @@ public class DepartureSlotController {
 		User user = SessionHelper.getUser(request);
 		List<DepartureSlot> dataList;
 		if (DepartureSlot.STATUS.AVAILABLE.equalsIgnoreCase(status)) {
+			//get all departure slot filter by condition
 			dataList = departureSlotDAO.queryByStatus(status, from, to);
 		}else{
 			if (User.TYPE.RAMP_CONTROL.equalsIgnoreCase(user.getType())) {
 				dataList = departureSlotDAO.query(from, to);
+			}else if(User.TYPE.STATION_MANAGER.equalsIgnoreCase(user.getType())){
+				if ("".equals(status)) {
+					//get pending departure slot of other airline filter by condition
+					dataList = new ArrayList<>();
+					List<DepartureSlot> tempList = departureSlotDAO.queryByStatus(DepartureSlot.STATUS.PENDING, from, to);
+					tempList.forEach(ds -> {
+						if(aircraftDAO.get(ds.getAircraftId()).getAirlineId() != user.getAirlineId()){
+							dataList.add(ds);
+						}
+					});
+				}else{
+					//get departure slot of own airline filter by condition
+					dataList = new ArrayList<>();
+					int airlineId = user.getAirlineId();
+					List<Aircraft> aircraftList = aircraftDAO.queryByAirlineId(airlineId);
+					aircraftList.forEach(aircraft -> {
+						List<DepartureSlot> subList = new ArrayList<>();
+						if ("".equals(status)) {
+							subList = departureSlotDAO.queryByAircraft(aircraft.getId(), from, to);
+						}else{
+							subList = departureSlotDAO.queryByAircraftAndStatus(aircraft.getId(), status, from, to);
+						}
+						dataList.addAll(subList);
+					});
+				}
 			}else{
+				//get departure slot of own airline filter by condition
 				dataList = new ArrayList<>();
 				int airlineId = user.getAirlineId();
 				List<Aircraft> aircraftList = aircraftDAO.queryByAirlineId(airlineId);
@@ -105,6 +134,11 @@ public class DepartureSlotController {
 	public RespResult delete(@PathParam("id") int id){
 		boolean success = false;
 		DepartureSlot departureSlot = departureSlotDAO.get(id);
+		
+		departureSlot.setStatus(DepartureSlot.STATUS.CANCEL);
+		departureSlotDAO.insert(departureSlot);
+		
+		departureSlot.setId(id);
 		departureSlot.setAircraftId(null);
 		departureSlot.setGateId(null);
 		departureSlot.setRequiredPushbackTime(null);

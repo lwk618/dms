@@ -59,9 +59,11 @@ public class ReportController {
 		double delayedRate = 0;
 		double cancellationRate = 0;
 		if (totalDeparture > 0) {
-			onTimeRate = new BigDecimal(onTimeDeparture).divide(new BigDecimal(totalDeparture)).doubleValue();
-			delayedRate = new BigDecimal(delayedDeparture).divide(new BigDecimal(totalDeparture)).doubleValue();
-			cancellationRate = new BigDecimal(cancellationDeparture).divide(new BigDecimal(totalDeparture)).doubleValue();
+			System.out.println("onTimeDeparture:"+onTimeDeparture);
+			System.out.println("totalDeparture:"+totalDeparture);
+			onTimeRate = new BigDecimal(onTimeDeparture).divide(new BigDecimal(totalDeparture), 4, BigDecimal.ROUND_HALF_UP).doubleValue();
+			delayedRate = new BigDecimal(delayedDeparture).divide(new BigDecimal(totalDeparture), 4, BigDecimal.ROUND_HALF_UP).doubleValue();
+			cancellationRate = new BigDecimal(cancellationDeparture).divide(new BigDecimal(totalDeparture), 4, BigDecimal.ROUND_HALF_UP).doubleValue();
 		}
 		
 		Map<String, Double> rateData = new HashMap<>();

@@ -44,6 +44,10 @@ public class DepartureSlotDAO extends BasicDAO<DepartureSlot> {
 		return query("select * from `" + TABLE + "`where `status` = ? and `" + COLUMN.SCHEDULED_PUSHBACK_TIME + "` between ? and ? ;", status, from, to);
 	} 
 	
+	public List<DepartureSlot> queryByStatus(String status, Timestamp from, Timestamp to) {
+		return query("select * from `" + TABLE + "`where `status` = ? and `" + COLUMN.SCHEDULED_PUSHBACK_TIME + "` between ? and ? ;", status, from, to);
+	} 
+	
 	public List<DepartureSlot> queryByAircraft(int aircraftId) {
 		return query("select * from `" + TABLE + "` where `" + COLUMN.AIRCRAFT_ID + "` = ?;", aircraftId);
 	}
@@ -103,7 +107,7 @@ public class DepartureSlotDAO extends BasicDAO<DepartureSlot> {
 		bean.setActualPushbackTime(rs.getTimestamp(COLUMN.ACTUAL_PUSHBACK_TIME));
 		bean.setGateId(rs.getString(COLUMN.GATE_ID));
 		bean.setStatus(rs.getString(COLUMN.STATUS));
-		bean.setAircraftId(rs.getInt(COLUMN.AIRCRAFT_ID));
+		bean.setAircraftId((Integer)rs.getObject(COLUMN.AIRCRAFT_ID));
 		return bean;
 	}
 
