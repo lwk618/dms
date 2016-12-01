@@ -66,6 +66,16 @@ public class LoginController {
 		return Response.ok(new JSONObject().put("type", userType).toString()).build();
 	}
 	
+	@Path("info")
+	@GET
+	public User getLoggedInUserInfo(){
+		User user = SessionHelper.getUser(request);
+		if (user != null) {
+			user.setPassword("");
+		}
+		return user;
+	}
+	
 	
 	@DELETE
 	public RespResult logout(){
