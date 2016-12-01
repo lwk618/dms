@@ -83,7 +83,7 @@ public class UserDAO extends BasicDAO<User> {
 		bean.setLoginId(rs.getString(COLUMN.LOGIN_ID));
 		bean.setPassword(rs.getString(COLUMN.PASSWORD));
 		bean.setType(rs.getString(COLUMN.TYPE));
-		bean.setAirlineId(rs.getInt(COLUMN.AIRLINE_ID));
+		bean.setAirlineId((Integer)rs.getObject(COLUMN.AIRLINE_ID));
 		bean.setStatus(rs.getString(COLUMN.STATUS));
 		bean.setLastLogin(rs.getTimestamp(COLUMN.LAST_LOGIN));
 		return bean;
