@@ -1,8 +1,8 @@
 # dms
 
 Server side deploy
-
 Environment
+
 	Window 7/10 with 64bit
 	Java 1.8
 	Mysql 5.6.1 or above
