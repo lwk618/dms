@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import dms.bean.RespResult;
 import dms.bean.User;
 import dms.db.dao.UserDAO;
+import dms.filter.LoggedInFilterBinding;
 
 /**
  * @author Kit
@@ -68,6 +69,7 @@ public class LoginController {
 	
 	@Path("info")
 	@GET
+	@LoggedInFilterBinding
 	public User getLoggedInUserInfo(){
 		User user = SessionHelper.getUser(request);
 		if (user != null) {
