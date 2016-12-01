@@ -10,22 +10,22 @@ Environment
 
 Installation Steps
 	
-	Install xampp 
+	1. Install xampp 
 
-	Run the Mysql service
+	2. Run the Mysql service
 	
-	Create mysql database user with 
+	3. Create mysql database user with 
 		username:dms
 		password:dms
 	
-	Login mysql with user(dms)
+	4. Login mysql with user(dms)
 	
-	Run the sql in "dms.sql" file to create schema and table with data 
+	5. Run the sql in "dms.sql" file to create schema and table with data 
 	
-	Copy "wildfly-9.0.1.Final" folder into C:\
+	6. Copy "wildfly-9.0.1.Final" folder into C:\
 	
-	Copy "Java 1.8" folder into C:\
+	7. Copy "Java 1.8" folder into C:\
 	
-	Double click the "run.bat" shortcut to run the "Wildfly" server. After few minutes, the server container finish initialize.
+	8. Double click the "run.bat" shortcut to run the "Wildfly" server. After few minutes, the server container finish initialize.
 	
-	Done. Finish the server side deployment.
+	9. Done. Finish the server side deployment.
