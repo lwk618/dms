@@ -1,7 +1,7 @@
 # dms
 
 Server side deploy
-Environment
+Environmental Requirement
 
 	Windows 7/10 with 64bit
 	Java 1.8
@@ -20,7 +20,7 @@ Installation Steps
 	
 	4. Login MySQL with "dms" user
 	
-	5. Run the SQL in "dms.sql" file to create schema and table with data 
+	5. Run the SQL in "dms.sql" file to create schema and table with data
 	
 	6. Copy "wildfly-9.0.1.Final" folder into C:\
 	
