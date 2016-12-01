@@ -10,8 +10,8 @@ Environment
 
 Installation Steps
 	
-	1. Install xampp 
-
+	1. Install xampp
+	
 	2. Run the Mysql service
 	
 	3. Create mysql database user with below setting
