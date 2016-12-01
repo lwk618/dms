@@ -14,7 +14,7 @@ Installation Steps
 
 	2. Run the Mysql service
 	
-	3. Create mysql database user with 
+	3. Create mysql database user with below setting
 		username:dms
 		password:dms
 	
