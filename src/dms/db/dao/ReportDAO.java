@@ -23,7 +23,7 @@ public class ReportDAO {
 					+ " FROM `DepartureSlot` "
 					+ " WHERE `status` = 'departure' "
 					+ " and scheduledPushbackTime between ? and ? "
-					+ " group by HOUR(`actualPushbackTime`);";
+					+ " group by time;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, from);
 			statement.setString(2, to);
@@ -45,7 +45,7 @@ public class ReportDAO {
 					+ " FROM `DepartureSlot` "
 					+ " WHERE `status` = 'departure' "
 					+ " and scheduledPushbackTime between ? and ? "
-					+ " group by MONTH(`actualPushbackTime`);";
+					+ " group by time;";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, from);
 			statement.setString(2, to);
