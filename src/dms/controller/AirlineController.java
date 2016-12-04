@@ -39,7 +39,7 @@ public class AirlineController {
 	public List<Airline> get(){
 		User user = SessionHelper.getUser(request);
 		List<Airline> dataList;
-		if (user.getAirlineId() == 0) {
+		if (user == null || User.TYPE.RAMP_CONTROL.equalsIgnoreCase(user.getType())) {
 			dataList = airlineDAO.query();
 		}else{
 			dataList = new ArrayList<>();
